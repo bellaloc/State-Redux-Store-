@@ -1,7 +1,9 @@
-import ReactDOM from 'react-dom/client'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import './index.css'
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Updated imports
+import { Provider } from 'react-redux';
+import store from './store';
+import App from './App';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import NoMatch from './pages/NoMatch';
@@ -9,37 +11,26 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Success from './pages/Success';
 import OrderHistory from './pages/OrderHistory';
-import App from './App.jsx'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    error: <NoMatch />,
-    children: [
-      {
-        index: true,
-        element: <Home />
-      }, {
-        path: '/login',
-        element: <Login />
-      }, {
-        path: '/signup',
-        element: <Signup />
-      }, {
-        path: '/products/:id',
-        element: <Detail />
-      }, {
-        path: '/orderHistory',
-        element: <OrderHistory />
-      }, {
-        path: '/success',
-        element: <Success />
-      }
-    ]
-  }
-])
+// Define your routes using the new React Router v6 syntax
+const RoutesComponent = () => (
+  <Routes>
+    <Route path="/" element={<App />}>
+      <Route index element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/products/:id" element={<Detail />} />
+      <Route path="/orderHistory" element={<OrderHistory />} />
+      <Route path="/success" element={<Success />} />
+      <Route path="*" element={<NoMatch />} />
+    </Route>
+  </Routes>
+);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
-)
+  <Provider store={store}>
+    <Router>
+      <RoutesComponent />
+    </Router>
+  </Provider>,
+);

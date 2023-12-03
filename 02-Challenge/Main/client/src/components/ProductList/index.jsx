@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
-import ProductItem from '../ProductItem';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { UPDATE_PRODUCTS } from '../../utils/actions';
+import { updateProducts, updateCurrentCategory } from '../../utils/actions'; // Import the specific action creators
 import { useQuery } from '@apollo/client';
 import { QUERY_PRODUCTS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
@@ -16,20 +15,18 @@ function ProductList() {
   const { loading, data } = useQuery(QUERY_PRODUCTS);
 
   useEffect(() => {
-    if (data) {
-      dispatch({
-        type: UPDATE_PRODUCTS,
-        products: data.products,
-      });
-      data.products.forEach((product) => {
+    const updateProductData = (products) => {
+      dispatch(updateProducts(products));
+      products.forEach((product) => {
         idbPromise('products', 'put', product);
       });
+    };
+
+    if (data) {
+      updateProductData(data.products);
     } else if (!loading) {
       idbPromise('products', 'get').then((products) => {
-        dispatch({
-          type: UPDATE_PRODUCTS,
-          products: products,
-        });
+        dispatch(updateProducts(products));
       });
     }
   }, [data, loading, dispatch]);
