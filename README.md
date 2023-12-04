@@ -16,7 +16,7 @@ Stripe Integration: The platform supports payment processing using the Stripe AP
 
 bash
 
-git clone https://github.com/BellaLoc/State-Redux-Store.git
+git clone https://github.com/bellaloc/State-Redux-Store-
 
 # Install dependencies:
 
