@@ -35,11 +35,14 @@ npm install
 
 bash
 
-npm run develop
+cd server : npm run seed
+&& npm run watch 
+
+cd client : npm run build
+&& npm run dev
 
 Once the development server is running, you can access the application in your web browser. The server should be running at http://localhost:3001, and the client (React) should be running at http://localhost:3000.
 
-to run only the server or the client, cd into either the client or server and run: npm start
 
 # Redux DevTools
 To debug and monitor the Redux state, make sure to install the Redux DevTools Extension in your browser. Open the extension and explore the actions, state changes, and more.
