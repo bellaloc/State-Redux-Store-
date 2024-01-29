@@ -8,12 +8,13 @@
     "start-client": "cd client && npm run dev",
     "install": "echo 'Installing dependencies' && npm install && echo 'Finished installing'",
     "seed": "cd server && npm run seed",
-    "build": "cd client && npm run build"  
+    "build": "cd client && npm run build",
+    "dev": "concurrently \"npm run seed\" \"npm run watch\" \"npm run start-client\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "Dependencies": {
+  "dependencies": {
     "concurrently": "^5.1.0"
   },
   "engines": {
